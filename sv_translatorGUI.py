@@ -1,39 +1,55 @@
 # TRANSLATORGUI (SUN VALLEY EDITION)
 
-from tkinter import *
-from tkinter import messagebox
-import pyperclip
-import tkinter.ttk as ttk
-import sv_ttk
+from tkinter import (
+    Tk,
+    StringVar,
+    Text,
+    LabelFrame,
+    Label,
+    HORIZONTAL,
+    WORD,
+    DISABLED,
+    CENTER,
+    END,
+    NORMAL,
+)
 import UnlimitedAutoTranslate as auto
+from tkinter import messagebox
+import tkinter.ttk as ttk
 import threading
- 
+import pyperclip
+import sv_ttk
 
-H = 0x0067C0  # MAGIC NUMBER THAT DOES NOTHING
+
+# H = 0x0067C0  # MAGIC NUMBER THAT DOES NOTHING
 LANGUAGES = (
     "amharic",
     "english",
-    "french",
     "oromo",
     "tigrinya",
+    "french",
+    "spanish",
 )  # add more languages you want i got lazy
+
+
 THEMES = ("dark", "light")  # we need a vaporwave windows11 theme
 
 
 # fonts
-FONT_12 = ("Cascadia Mono", 12)
-FONT_10 = ("Cascadia Mono", 10)
-FONT_8 = ("Cascadia Mono", 8)
+FONT_12 = ("Consolas", 13)
+FONT_10 = ("Consolas", 11)
+FONT_8 = ("Consolas", 9)
 
 
 class translator(Tk):
     # CLASS CLASS CLASS F*CKING CLASSES!!!
     def __init__(self):
         super().__init__()
-        self.geometry("675x575") # pretty big
+        self.geometry("675x575")  # pretty big
         self.title("T.L.S. Translator")
-        self.resizable(False, False) # NO WAY I'M GOING TO LET THIS THING GO FULLSCREEN
+        self.resizable(False, False)  # NO WAY I'M GOING TO LET THIS THING GO FULLSCREEN
         self.style = ttk.Style(self)
+        self.iconbitmap("./icon.ico")
 
         self.option_var = StringVar()
         self.theme_var = StringVar()
@@ -155,7 +171,7 @@ class translator(Tk):
         return sv_ttk.set_theme(theme)
 
     def about(self):
-        self.about_frame.place(relx=0.7, rely=0.733, anchor=CENTER)
+        self.about_frame.place(relx=0.7, rely=0.720, anchor=CENTER)
 
     # THIS IS WHERE THE REAL WORK HAPPENS
     def translate(self):
@@ -176,6 +192,7 @@ class translator(Tk):
             self.title("T.L.S. Translator")
         except Exception as e:
             self.pb.destroy()
+            self.result_box.configure(state=DISABLED)
             self.title("T.L.S. Translator")
             messagebox.showerror(title="Error", message=e)
 
@@ -189,6 +206,3 @@ if (
 ):  # Python has a weird way of addressing main functions. like wtf is __name__?
     translator().mainloop()
 # end main
-
-
-
